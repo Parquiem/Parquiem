@@ -1,0 +1,11 @@
+{
+  "name": "parquiem",
+  "version": "1.0.0",
+  "description": "Web and Mobile aplication that tracks any parking meter in Chihuahua center, thanks to an Arduino sending that data.",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Parquiem",
+  "license": "ISC"
+}
