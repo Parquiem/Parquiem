@@ -15,9 +15,12 @@ let profilePic = new Schema({
 });
 
 
-let User = new Schema({
-    nombre: String,
-    correo: {
+let UserSchema = new Schema({
+    name: {
+        type: String,
+        required: true
+    }, 
+    email: {
         type: String,
         required: true
     },
@@ -25,14 +28,18 @@ let User = new Schema({
         type: String,
         required: true
     },
-    telefono: {
+    phoneNumber: {
         type: String,
         required: true
     },
-    autos: [{
-        modelo: String,
+    date: {
+        type: Date,
+        default: Date.now
+    },
+    car: [{
+        carModel: String,
         color: String,
-        placas: {
+        plates: {
             type: String,
             required: true
         }
@@ -44,4 +51,4 @@ let User = new Schema({
     }
 });
 
-module.exports = Usuario = mongoose.model('user', User);
+module.exports = User = mongoose.model('users', UserSchema);
