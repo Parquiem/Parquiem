@@ -57,7 +57,8 @@ router.post("/login", (req, res) => {
     // Validacion
     if (!isValid) {
       return res.status(400).json(errors);
-    }const email = req.body.email;
+    }
+    const email = req.body.email;
     const password = req.body.password;
     // Busca el usuario por email
     User.findOne({ email }).then(user => {
@@ -95,4 +96,11 @@ router.post("/login", (req, res) => {
     });
   });
 
+// @route DELETE api/users/:id
+// @desc Delete user account
+// @access Private
+router.delete('/:id', (req, res) => {
+  User.findByIdAndDelete(req.params.id).then(() => res.json({ success: true}))
+  .catch(err => res.status(404).json({ success: false }))
+});
   module.exports = router;
