@@ -3,6 +3,7 @@ const router = express.Router();
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const keys = require("../../config/keys");
+const auth = require("../auth");
 
 //Validacion de input
 const validateRegisterInput = require("../../validation/register");
@@ -99,7 +100,7 @@ router.post("/login", (req, res) => {
 // @route DELETE api/users/:id
 // @desc Delete user account
 // @access Private
-router.delete('/:id', (req, res) => {
+router.delete('/:id', auth.required, (req, res) => {
   User.findByIdAndDelete(req.params.id).then(() => res.json({ success: true}))
   .catch(err => res.status(404).json({ success: false }))
 });
@@ -153,13 +154,17 @@ router.put('/:id', (req, res) => {
     phoneNumber: req.body.phoneNumber,
     password : req.body.password,
     parkoins : req.body.parkoins
-	}
- 
-	// save the user
-	User.findByIdAndUpdate(id, data).then(() => res.json({ success: true}))
-  .catch(err => res.status(404).json({ success: false }))
   }
-	
+  bcrypt.genSalt(10, (err, salt) => {
+    bcrypt.hash(data.password, salt, (err, hash) => {
+        if (err) throw err;
+        data.password = hash;
+        // save the user
+        User.findByIdAndUpdate(id, data).then(() => res.json({ success: true}))
+        .catch(err => res.status(404).json({ success: false }))
+    });
+});
+  }	
 });
 
 
