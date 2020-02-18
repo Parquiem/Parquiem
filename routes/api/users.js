@@ -3,6 +3,7 @@ const router = express.Router();
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const keys = require("../../config/keys");
+const auth = require("../auth");
 
 //Validacion de input
 const validateRegisterInput = require("../../validation/register");
@@ -57,7 +58,8 @@ router.post("/login", (req, res) => {
     // Validacion
     if (!isValid) {
       return res.status(400).json(errors);
-    }const email = req.body.email;
+    }
+    const email = req.body.email;
     const password = req.body.password;
     // Busca el usuario por email
     User.findOne({ email }).then(user => {
@@ -98,4 +100,75 @@ router.post("/login", (req, res) => {
     });
   });
 
-  module.exports = router;
+// @route DELETE api/users/:id
+// @desc Delete user account
+// @access Private
+router.delete('/:id', auth.required, (req, res) => {
+  User.findByIdAndDelete(req.params.id).then(() => res.json({ success: true}))
+  .catch(err => res.status(404).json({ success: false }))
+});
+
+//TODO
+// @route POST api/users/:id
+// @desc Adds parkoins to user
+// @access private
+
+
+// @route GET api/users/:id
+// @desc views one user
+// @access public
+router.get('/getUser/:id', (req, res) => {
+  User.findById(req.params.id)
+    .then((result) => {
+      res.json(result);
+    })
+    .catch((err) => {
+      res.status(404).json({ success: false, msg: `No such user.` });
+    });
+});
+
+// @route GET api/users/getUsers
+// @desc views all users
+// @access private
+router.get('/getUsers', (req, res) => {
+  User.find({})
+    .then((result) => {
+      res.json(result);
+    })
+    .catch((err) => {
+      res.status(500).json({ success: false, msg: `Something went wrong. ${err}` });
+    });
+  });
+
+// @route PUT api/users/:id
+// @desc updates a user
+// @access private
+	
+router.put('/:id', (req, res) => {
+	const {errors, isValid } = validateRegisterInput(req.body);
+
+  if (!isValid) {
+        return res.status(400).json(errors);
+  }else{
+    let id = req.params.id;
+	let data = {
+		name : req.body.name,
+    email : req.body.email,
+    phoneNumber: req.body.phoneNumber,
+    password : req.body.password,
+    parkoins : req.body.parkoins
+  }
+  bcrypt.genSalt(10, (err, salt) => {
+    bcrypt.hash(data.password, salt, (err, hash) => {
+        if (err) throw err;
+        data.password = hash;
+        // save the user
+        User.findByIdAndUpdate(id, data).then(() => res.json({ success: true}))
+        .catch(err => res.status(404).json({ success: false }))
+    });
+});
+  }	
+});
+
+
+module.exports = router;
