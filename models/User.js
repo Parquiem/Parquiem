@@ -76,4 +76,3 @@ let UserSchema = new Schema({//Se registran los datos de perfil del usuario
 });
 
 module.exports = User = mongoose.model('users', UserSchema);
-module.exports = Images = mongoose.model('images', profilePic);

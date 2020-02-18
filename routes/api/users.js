@@ -129,7 +129,7 @@ router.get('/getUser/:id', (req, res) => {
 router.get('/getUsers', (req, res) => {
   User.find({})
     .then((result) => {
-      res.json(result);
+      return res.json(result);
     })
     .catch((err) => {
       res.status(404).json({ success: false, msg: `Something went wrong. ${err}` });
@@ -177,24 +177,20 @@ router.post('/update/:id/', upload.single('profilePic'), (req, res) => {
   }
 });
 
-// @route PUT api/users/car/:id
+// @route POST api/users/car/:id
 // @desc adds cars for user
 // @access private
-router.put('/car/:id', (req, res) => {
+router.post('/car/:id', (req, res) => {
   let id = req.params.id;
   const newCar = {
     carModel : req.body.carModel,
     color :    req.body.color,
     plates:    req.body.plates
   }
-  const user = User.findById(id);
-  let data = {
-    ...user,
-    car: [newCar]
-  };
 
-  User.findByIdAndUpdate(id,data).then(() => res.json({ success: true, data}))
-  .catch(err => res.status(404).json({ success: false, err }))
+  User.findByIdAndUpdate(id,{$push: {car: newCar}})
+    .then((data) => res.json({ success: true, data}))
+    .catch(err => res.status(404).json({ success: false, err }))
   
 });
 
