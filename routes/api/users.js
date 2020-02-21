@@ -210,16 +210,16 @@ router.put('/carUpdate/:carId', auth.required,(req, res) => {
  User.findByIdAndUpdate(carId, data).then(() => res.json({ success: true, data}))
         .catch(err => res.status(404).json({ success: false }))
 });
-// @route PUT api/users/carDelete/:CarId
+
+// @route DELETE api/users/carDelete/:CarId
 // @desc deletes cars for user
 // @access private
-router.delete('/carDelete/:id/:carId', auth.required, (req, res) => {
+router.delete('/carDelete/:userId/:carId', (req, res) => {
+  let userId = req.params.userId;
   let carId = req.params.carId;
-  let id = req.params.id;
-  User.update(id,{$pull: {car: { carId }}})
-    .then(() => res.json({ success: true, newCar}))
-    .catch(err => res.status(404).json({ success: false, err }))
-  
+  User.updateOne({'_id': userId},{$pull: {'car': {'_id': carId}}})
+    .then(() => res.json({msg: `Se borro el carro con el id ${carId}`}))
+    .catch(err => res.status(404).json({ success: false, err }));
 });
 
 
