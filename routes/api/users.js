@@ -88,7 +88,7 @@ router.post("/login", (req, res) => {
             (err, token) => {
               res.json({
                 success: true,
-                token: "Bearer " + token
+                token: "Token " + token
               });
             }
           );
@@ -140,7 +140,7 @@ router.get('/getUsers', (req, res) => {
 // @desc updates a user
 // @access private
 	
-router.put('/update/:id', (req, res) => {
+router.put('/update/:id', auth.required, (req, res) => {
 	const {errors, isValid } = validateRegisterInput(req.body);
 
   if (!isValid) {
@@ -152,7 +152,6 @@ router.put('/update/:id', (req, res) => {
     email : req.body.email,
     phoneNumber: req.body.phoneNumber,
     password : req.body.password,
-    parkoins : req.body.parkoins
   }
   bcrypt.genSalt(10, (err, salt) => {
     bcrypt.hash(data.password, salt, (err, hash) => {
@@ -180,7 +179,7 @@ router.post('/update/:id/', upload.single('profilePic'), (req, res) => {
 // @route POST api/users/car/:id
 // @desc adds cars for user
 // @access private
-router.post('/car/:id', (req, res) => {
+router.post('/car/:id', auth.required,(req, res) => {
   let id = req.params.id;
   const newCar = {
     carModel : req.body.carModel,
@@ -189,7 +188,7 @@ router.post('/car/:id', (req, res) => {
   }
 
   User.findByIdAndUpdate(id,{$push: {car: newCar}})
-    .then((data) => res.json({ success: true, data}))
+    .then(() => res.json({ success: true, newCar}))
     .catch(err => res.status(404).json({ success: false, err }))
   
 });
@@ -197,7 +196,7 @@ router.post('/car/:id', (req, res) => {
 // @route PUT api/users/carUpdate/:CarId
 // @desc adds cars for user
 // @access private
-router.put('/carUpdate/:carId', (req, res) => {
+router.put('/carUpdate/:carId', auth.required,(req, res) => {
   let carId = req.params.carId;
   let data = {
     car : [
@@ -210,6 +209,17 @@ router.put('/carUpdate/:carId', (req, res) => {
   }
  User.findByIdAndUpdate(carId, data).then(() => res.json({ success: true, data}))
         .catch(err => res.status(404).json({ success: false }))
+});
+// @route PUT api/users/carDelete/:CarId
+// @desc deletes cars for user
+// @access private
+router.delete('/carDelete/:id/:carId', auth.required, (req, res) => {
+  let carId = req.params.carId;
+  let id = req.params.id;
+  User.update(id,{$pull: {car: { carId }}})
+    .then(() => res.json({ success: true, newCar}))
+    .catch(err => res.status(404).json({ success: false, err }))
+  
 });
 
 
