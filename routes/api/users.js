@@ -189,7 +189,7 @@ router.post('/car/:id', (req, res) => {
   }
 
   User.findByIdAndUpdate(id,{$push: {car: newCar}})
-    .then((data) => res.json({ success: true, data}))
+    .then(() => res.json({ success: true, newCar}))
     .catch(err => res.status(404).json({ success: false, err }))
   
 });
