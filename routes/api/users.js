@@ -165,6 +165,8 @@ router.put('/update/:id', auth.required, (req, res) => {
   }	
 });
 
+
+//TODO:
 // @route PUT api/users/update/:id
 // @desc updates a user profile pic
 // @access private
