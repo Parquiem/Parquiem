@@ -4,9 +4,16 @@
   "description": "Web and Mobile aplication that tracks any parking meter in Chihuahua center, thanks to an Arduino sending that data.",
   "main": "server.js",
   "scripts": {
+    "web-install": "npm install --prefix web",
+    "mobile-install": "npm install --prefix mobile",
     "start": "node server.js",
     "server": "nodemon server.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "web": "npm start --prefix web",
+    "mobile-server": "npm start --prefix mobile",
+    "mobile-client": "npx react-native run-android --prefix mobile",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev-web": "concurrently \"npm run server\" \"npm run web\"",
+    "dev-mobile": "concurrently \"npm run server\" \"npm run mobile-server\" "
   },
   "author": "Parquiem",
   "license": "ISC",
