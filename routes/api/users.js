@@ -3,7 +3,9 @@ const router = express.Router();
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const keys = require("../../config/keys");
-
+const auth = require("../auth");
+const multer = require('multer');
+const upload = multer({dest:'uploads/'});
 //Validacion de input
 const validateRegisterInput = require("../../validation/register");
 const validateLoginInput = require("../../validation/login");
@@ -71,7 +73,10 @@ router.post("/login", (req, res) => {
           // Se crea el payload
           const payload = {
             id: user.id,
-            name: user.name
+            name: user.name,
+            email: user.email,
+            phoneNumber: user.phoneNumber,
+            parkoins: user.parkoins,
           };
           // Sign token
           jwt.sign(
@@ -83,7 +88,7 @@ router.post("/login", (req, res) => {
             (err, token) => {
               res.json({
                 success: true,
-                token: "Bearer " + token
+                token: "Token " + token
               });
             }
           );
@@ -99,8 +104,127 @@ router.post("/login", (req, res) => {
 // @route DELETE api/users/:id
 // @desc Delete user account
 // @access Private
-router.delete('/:id', (req, res) => {
+router.delete('/delete/:id', auth.required, (req, res) => {
   User.findByIdAndDelete(req.params.id).then(() => res.json({ success: true}))
   .catch(err => res.status(404).json({ success: false }))
 });
-  module.exports = router;
+
+
+// @route GET api/users/:id
+// @desc views one user
+// @access public
+router.get('/getUser/:id', (req, res) => {
+  User.findById(req.params.id)
+    .then((result) => {
+      res.json(result);
+    })
+    .catch((err) => {
+      res.status(404).json({ success: false, msg: `No such user.` });
+    });
+});
+
+// @route GET api/users/getUsers
+// @desc views all users
+// @access private
+router.get('/getUsers', (req, res) => {
+  User.find({})
+    .then((result) => {
+      return res.json(result);
+    })
+    .catch((err) => {
+      res.status(404).json({ success: false, msg: `Something went wrong. ${err}` });
+    });
+  });
+
+// @route PUT api/users/update/:id
+// @desc updates a user
+// @access private
+	
+router.put('/update/:id', auth.required, (req, res) => {
+	const {errors, isValid } = validateRegisterInput(req.body);
+
+  if (!isValid) {
+        return res.status(400).json(errors);
+  }else{
+  let id = req.params.id;
+	let data = {
+		name : req.body.name,
+    email : req.body.email,
+    phoneNumber: req.body.phoneNumber,
+    password : req.body.password,
+  }
+  bcrypt.genSalt(10, (err, salt) => {
+    bcrypt.hash(data.password, salt, (err, hash) => {
+        if (err) throw err;
+        data.password = hash;
+        // save the user
+        User.findByIdAndUpdate(id, data).then(() => res.json({ success: true}))
+        .catch(err => res.status(404).json({ success: false }))
+    });
+});
+  }	
+});
+
+
+//TODO:
+// @route PUT api/users/update/:id
+// @desc updates a user profile pic
+// @access private
+router.post('/update/:id/', upload.single('profilePic'), (req, res) => {
+  try {
+    res.send(req.file);
+  } catch (err) {
+    res.send(400);
+  }
+});
+
+// @route POST api/users/car/:id
+// @desc adds cars for user
+// @access private
+router.post('/car/:id', auth.required,(req, res) => {
+  let id = req.params.id;
+  const newCar = {
+    carModel : req.body.carModel,
+    color :    req.body.color,
+    plates:    req.body.plates
+  }
+
+  User.findByIdAndUpdate(id,{$push: {car: newCar}})
+    .then(() => res.json({ success: true, newCar}))
+    .catch(err => res.status(404).json({ success: false, err }))
+  
+});
+
+// @route PUT api/users/carUpdate/:CarId
+// @desc adds cars for user
+// @access private
+router.put('/carUpdate/:carId', auth.required,(req, res) => {
+  let carId = req.params.carId;
+  let data = {
+    car : [
+      {
+        carModel : req.body.carModel,
+        color :    req.body.color,
+        plates:    req.body.plates
+      }
+    ]
+  }
+ User.findByIdAndUpdate(carId, data).then(() => res.json({ success: true, data}))
+        .catch(err => res.status(404).json({ success: false }))
+});
+
+// @route DELETE api/users/carDelete/:CarId
+// @desc deletes cars for user
+// @access private
+router.delete('/carDelete/:userId/:carId', (req, res) => {
+  let userId = req.params.userId;
+  let carId = req.params.carId;
+  User.updateOne({'_id': userId},{$pull: {'car': {'_id': carId}}})
+    .then(() => res.json({msg: `Se borro el carro con el id ${carId}`}))
+    .catch(err => res.status(404).json({ success: false, err }));
+});
+
+
+
+
+module.exports = router;
