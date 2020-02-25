@@ -5,7 +5,16 @@ const jwt = require("jsonwebtoken");
 const keys = require("../../config/keys");
 const auth = require("../auth");
 const multer = require('multer');
-const upload = multer({dest:'uploads/'});
+var storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, './uploads/')
+  },
+  filename: function (req, file, cb) {
+    cb(null, file.fieldname + '-' + Date.now())
+  }
+})
+ 
+var upload = multer({ storage: storage });
 //Validacion de input
 const validateRegisterInput = require("../../validation/register");
 const validateLoginInput = require("../../validation/login");
@@ -171,11 +180,17 @@ router.put('/update/:id', auth.required, (req, res) => {
 // @desc updates a user profile pic
 // @access private
 router.post('/update/:id/', upload.single('profilePic'), (req, res) => {
-  try {
-    res.send(req.file);
-  } catch (err) {
-    res.send(400);
-  }
+    let id = req.params.id;
+    const newProfilePic = {
+      profilePic : {
+        path : req.file.path,
+        originalName : req.file.originalname
+      }
+    };
+    User.findByIdAndUpdate(id, newProfilePic)
+      .then(() => res.json({ success: true, newProfilePic}))
+      .catch(err => res.status(404).json({ success: false, err}))
+  
 });
 
 // @route POST api/users/car/:id
@@ -223,6 +238,7 @@ router.delete('/carDelete/:userId/:carId', (req, res) => {
     .then(() => res.json({msg: `Se borro el carro con el id ${carId}`}))
     .catch(err => res.status(404).json({ success: false, err }));
 });
+
 
 
 
