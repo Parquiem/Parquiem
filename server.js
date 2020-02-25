@@ -33,7 +33,7 @@ mongoose
 
 
   io.on('connection', (socket) => {
-      console.log("Usuario conectado");
+      console.log("Usuario conectado");   
       // Evento lanzado por parte del ESP32
       socket.on('isOccupiedESP', data => {
           //Evento lanzado para el cliente
