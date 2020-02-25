@@ -34,17 +34,6 @@ mongoose
 
   io.on('connection', (socket) => {
       console.log("Usuario conectado");
-      // Evento lanzado por parte del ESP32
-      socket.on('isOccupiedESP', data => {
-          //Evento lanzado para el cliente
-          socket.emit('isOcuppiedClient', data);
-      });
-
-      //Evento lanzado por parte del cliente lanzando los tiempos
-      socket.on('tiempos', data => {
-          //Evento para el ESP32, recibira y mostrar el tiempo
-          socket.emit('tiempoESP', data);
-      });
   });
 
 // Passport middleware
