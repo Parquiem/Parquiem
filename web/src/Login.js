@@ -11,7 +11,7 @@ function Login() {
       <div class="text text-center font-serif">
       <div class="title text-parkblue-dark text-4xl mt-12">Iniciar Sesión</div>
       </div>
-      <form class="relative" action="../../routes/api/users/login.js">
+      <form class="relative" action="http://localhost:5050/api/users/login" method="post">
         <div class="absolute left-half -ml-28">
         <input type="email" id="email" class="outline-none mt-20 font-serif text-xl text-parkblue-dark rounded-full border-parkblue-dark border-2 placeholder-parkblue-dark pl-4 p-1" name="email" placeholder="Correo"></input>
         <input type="password" id="pass" class="outline-none block mt-5 font-serif text-xl text-parkblue-dark rounded-full border-parkblue-dark border-2 placeholder-parkblue-dark pl-4 p-1" name="password" placeholder="Contraseña"></input>
