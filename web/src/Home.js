@@ -1,6 +1,5 @@
 import React from 'react';
 import Navigation from './Navigation'
-import Login from './Login';
 
 function Home() {
 
@@ -13,7 +12,7 @@ function Home() {
       <div class="title text-6xl mt-1" >Parquiem</div>
       <div class="description text-3xl">La app que te guía</div>
       </div>
-      <img src="images/page1.png" class="md:w-1/2 lg:w-1/3 content-center ml-auto mr-auto block mt-1"></img>
+      <img src="images/page1.png" class="md:w-1/2 lg:w-1/3 content-center ml-auto mr-auto block mt-1" alt="imagen parquiem"></img>
     </div>
     {/* <div class="page2">
         <div class="container relative float-right">

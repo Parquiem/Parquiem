@@ -1,6 +1,5 @@
 import React from 'react';
 import Navigation from './Navigation';
-import Signup from './Signup';
 import {NavLink} from 'react-router-dom';
 
 function Login() {
@@ -24,7 +23,7 @@ function Login() {
       <NavLink to="/Signup"><div class="absolute left-half -ml-28 mt-52">
         <button id="crear_cuenta" class="outline-none bg-parkblue-dark text-white pl-6 pr-6 pt-1 pb-1 rounded-full font-serif">Crear cuenta</button>
         </div></NavLink>
-      <img src="images/city.png" class="w-screen pl-5 pr-5 mt-64 sm:mt-52 md:mt-40 lg:mt-32"></img>
+      <img src="images/city.png" class="w-screen pl-5 pr-5 mt-64 sm:mt-52 md:mt-40 lg:mt-32" alt="imagen_fondo"></img>
   </div>
   </div>
   );
