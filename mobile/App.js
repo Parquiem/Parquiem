@@ -7,7 +7,7 @@ import {
   Text,
   StatusBar,
 } from 'react-native';
-import Login from './screens/Initial/Login';
+import Initial from './screens/Initial';
 
 class App extends Component{
 
@@ -22,7 +22,7 @@ class App extends Component{
       {!isLoggedIn ? (
         <Text>Hola mundo</Text>
         ) : (
-          <Login />
+          <Initial />
         )
       }
       </>
