@@ -4,7 +4,7 @@ import { NavLink } from 'react-router-dom';
 function Navigation() {
 
   let login;
-    if(window.location.href=='http://localhost:3000/'){
+    if(window.location.href==='http://localhost:3000/'){
      login = <NavLink to="/Login"><div class="relative float-right mr-20 "><p class="text-white font-serif cursor-pointer text-lg absolute pt-1">Login</p></div></NavLink>;
     }else{
        login= '';

@@ -34,18 +34,7 @@ mongoose
 
 
   io.on('connection', (socket) => {
-      console.log("Usuario conectado");   
-      // Evento lanzado por parte del ESP32
-      socket.on('isOccupiedESP', data => {
-          //Evento lanzado para el cliente
-          socket.emit('isOcuppiedClient', data);
-      });
-
-      //Evento lanzado por parte del cliente lanzando los tiempos
-      socket.on('tiempos', data => {
-          //Evento para el ESP32, recibira y mostrar el tiempo
-          socket.emit('tiempoESP', data);
-      });
+      console.log("Usuario conectado");
   });
 
 // Passport middleware
@@ -57,5 +46,5 @@ app.use("/api/users", users);
 app.use("/api/transactions", transactions);
 // app.use("/api/parquimetro", parquimetro);
 
-const port = process.env.PORT || 5000; // process.env.port is Heroku's port if you choose to deploy the app there
+const port = process.env.PORT || 5050; // process.env.port is Heroku's port if you choose to deploy the app there
 app.listen(port, () => console.log(`Server up and running on port ${port} !`));
