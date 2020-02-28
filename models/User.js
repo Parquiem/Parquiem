@@ -69,7 +69,10 @@ let UserSchema = new Schema({//Se registran los datos de perfil del usuario
         cost: {
             type: Number
         },
-        location: {
+        lat: {
+            type: String
+        },
+        lng: {
             type: String
         }
     }]
