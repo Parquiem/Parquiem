@@ -3,6 +3,7 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom';
  
 import Home from './Home';
 import Login from './Login';
+import Test from './Test';
 import Signup from './Signup';
 import Signup1 from './signup-steps/Signup1';
 import Signup2 from './signup-steps/Signup2';
@@ -16,6 +17,7 @@ class App extends Component {
             <Switch>
              <Route path="/" component={Home} exact/>
              <Route path="/login" component={Login}/>
+             <Route path="/test" component={Test}/>
              <Route path="/signup" component={Signup}/>
              <Route path="/signup1" component={Signup1}/>
              <Route path="/signup2" component={Signup2}/>
