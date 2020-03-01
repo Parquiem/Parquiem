@@ -3,14 +3,14 @@ const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const passport = require("passport");
 
+
+
 const users = require("./routes/api/users");
 const transactions = require('./routes/api/transactions');
 // const parquimetro = require('./routes/api/parquimetro');
 
 
 const app = express();
-const server = require('http').Server(app);
-const io = require("socket.io")(server);
 
 
 app.use(
@@ -32,10 +32,11 @@ mongoose
   .then(() => console.log("MongoDB successfully connected"))
   .catch(err => console.log(err));
 
+//FIXME: Arreglar el mqtt
+const sensors = require('./sensors');
+// sensors();
 
-  io.on('connection', (socket) => {
-      console.log("Usuario conectado");
-  });
+  
 
 // Passport middleware
 app.use(passport.initialize());
