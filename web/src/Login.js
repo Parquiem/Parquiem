@@ -13,8 +13,8 @@ function Login() {
       </div>
       <form class="relative" action="http://localhost:5050/api/users/login" method="post">
         <div class="absolute left-half -ml-28">
-        <input type="email" id="email" class="outline-none mt-20 font-serif text-xl text-parkblue-dark rounded-full border-parkblue-dark border-2 placeholder-parkblue-dark pl-4 p-1" name="email" placeholder="Correo"></input>
-        <input type="password" id="pass" class="outline-none block mt-5 font-serif text-xl text-parkblue-dark rounded-full border-parkblue-dark border-2 placeholder-parkblue-dark pl-4 p-1" name="password" placeholder="Contraseña"></input>
+        <input type="email" id="email" class="outline-none mt-20 font-serif text-xl text-parkblue-dark rounded-full border-parkblue-dark border-2 placeholder-parkblue-dark pl-4 p-1" name="email" placeholder="Correo" required></input>
+        <input type="password" id="pass" class="outline-none block mt-5 font-serif text-xl text-parkblue-dark rounded-full border-parkblue-dark border-2 placeholder-parkblue-dark pl-4 p-1" name="password" placeholder="Contraseña" required></input>
         </div>
         <div class="absolute left-half ml-8 mt-52">
         <button id="login" class="outline-none bg-parkblue-dark text-white pl-6 pr-6 pt-1 pb-1 rounded-full font-serif">Login</button>
