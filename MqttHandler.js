@@ -41,12 +41,6 @@ const connectionArgs = {
   secureProtocol: 'TLSv1_2_method',
 };
 
-
-
-    // Create a client, and connect to the Google MQTT bridge.
-    // const iatTime = parseInt(Date.now() / 1000);
-
-
 class MqttHandler {
   constructor(){
     this.client = null;
@@ -56,20 +50,20 @@ class MqttHandler {
     this.client = mqtt.connect(connectionArgs);
 
     this.client.subscribe(mqttTopic, {qos: 0}, (err, granted) => {
-      console.log("Error en la suscripcion: "+err);
-      console.log("Granted", granted);
+      if(err){
+        console.log("Error en la suscripcion: "+err);
+        console.log("Granted", granted);
+      }
     });
     
     // Connection callback
     this.client.on('connect', (success) => {
-      if(success){
-        console.log(`Cliente MQTT conectado`);
-        this.client.publish(mqttTopic, "Joto", (err) => {
-          console.log("Publish", err);
-        });
-      }else{
+      if(!success){
         console.log("No se ha conectado")
         this.client.end();
+      }else{
+        console.log(`Cliente MQTT conectado`);
+        this.client.publish(mqttTopic, "Joto");
       }
     });
     
@@ -80,7 +74,6 @@ class MqttHandler {
     
     this.client.on('error', (err) => {
       console.log(err);
-      this.client.end();
     });
 
 

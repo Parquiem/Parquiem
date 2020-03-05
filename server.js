@@ -32,14 +32,15 @@ mongoose
   .then(() => console.log("MongoDB successfully connected"))
   .catch(err => console.log(err));
 
-  const mqttHandler = require('./MqttHandler');
-  const mqttClient = new mqttHandler();
+  // const mqttHandler = require('./MqttHandler');
+  // const mqttClient = new mqttHandler();
 
-  mqttClient.connect();
+  // mqttClient.connect();
 
-  app.get('/', (req, res) => {
-    res.send("Nudes");
-  })
+  const pubSubHandler = require('./PubSub');
+  const pubSubClient = new pubSubHandler();
+
+  pubSubClient.connect();
 
 // Passport middleware
 app.use(passport.initialize());
