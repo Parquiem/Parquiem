@@ -11,7 +11,7 @@ function Test2(){
     <div id="profile" class="p-20 h-full bg-gray-900">
     <div id="profilesquare" class="border-2 border-white h-full pl-10 pt-5">
     <div id="pic" class="pb-5">
-        <img src="images/default-user-300x300.png" class="rounded-full w-24"/>
+        <img src="images/default-user-300x300.png" class="rounded-full w-24" alt="imagen usuario"/>
     </div>
     <div id="userName" class="mr-20 pb-2 relative">
         <p class="font-serif text-gray-600">Nombre de usuario</p>
