@@ -158,7 +158,7 @@ router.put('/update/:id', auth.required, (req, res) => {
   let id = req.params.id;
 	let data = {
 		name : req.body.name,
-    email : req.body.email,
+    //email : req.body.email,
     phoneNumber: req.body.phoneNumber,
     password : req.body.password,
   }

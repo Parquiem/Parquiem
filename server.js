@@ -32,14 +32,18 @@ mongoose
   .then(() => console.log("MongoDB successfully connected"))
   .catch(err => console.log(err));
 
-  const mqttHandler = require('./MqttHandler');
-  const mqttClient = new mqttHandler();
+  // const mqttHandler = require('./MqttHandler');
+  // const mqttClient = new mqttHandler();
 
-  mqttClient.connect();
+  // mqttClient.connect();
 
   app.get('/', (req, res) => {
     res.send("Nudes");//se pasan de lanza
   })
+  const pubSubHandler = require('./PubSub');
+  const pubSubClient = new pubSubHandler();
+
+  pubSubClient.connect();
 
   app.use((req, res, next) => {
     res.header('Access-Control-Allow-Origin', 'http://localhost:3000');
