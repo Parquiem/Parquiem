@@ -20,6 +20,7 @@
     "eject": "react-scripts eject",
     "tailwind:css": "tailwind build src/css/tailwind.src.css -c  tailwind.js -o src/css/tailwind.css"
   },
+  "proxy":"http://localhost:5000",
   "eslintConfig": {
     "extends": "react-app"
   },

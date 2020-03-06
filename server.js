@@ -37,10 +37,31 @@ mongoose
 
   // mqttClient.connect();
 
+  app.get('/', (req, res) => {
+    res.send("Nudes");//se pasan de lanza
+  })
   const pubSubHandler = require('./PubSub');
   const pubSubClient = new pubSubHandler();
 
   pubSubClient.connect();
+
+  app.use((req, res, next) => {
+    res.header('Access-Control-Allow-Origin', 'http://localhost:3000');
+    next();
+  });
+  
+  app.get('/getUsers', (req, res) => {
+    request(
+      { url: 'http://localhost:5000/api/users/getUsers' },
+      (error, response, body) => {
+        if (error || response.statusCode !== 200) {
+          return res.status(500).json({ type: 'error', message: err.message });
+        }
+  
+        res.json(JSON.parse(body));
+      }
+    )
+  });
 
 // Passport middleware
 app.use(passport.initialize());
