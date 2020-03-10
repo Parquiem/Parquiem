@@ -17,6 +17,7 @@ var storage = multer.diskStorage({
 var upload = multer({ storage: storage });
 //Validacion de input
 const validateRegisterInput = require("../../validation/register");
+const validateEditInput = require("../../validation/edit");
 const validateLoginInput = require("../../validation/login");
 
 //Usamos el modelo de usuario
@@ -149,8 +150,8 @@ router.get('/getUsers', (req, res) => {
 // @desc updates a user
 // @access private
 	
-router.put('/update/:id', auth.required, (req, res) => {
-	const {errors, isValid } = validateRegisterInput(req.body);
+router.put('/update/:id', (req, res) => {
+	const {errors, isValid } = validateEditInput(req.body);
 
   if (!isValid) {
         return res.status(400).json(errors);
@@ -158,7 +159,6 @@ router.put('/update/:id', auth.required, (req, res) => {
   let id = req.params.id;
 	let data = {
 		name : req.body.name,
-    //email : req.body.email,
     phoneNumber: req.body.phoneNumber,
     password : req.body.password,
   }
@@ -170,7 +170,7 @@ router.put('/update/:id', auth.required, (req, res) => {
         User.findByIdAndUpdate(id, data).then(() => res.json({ success: true}))
         .catch(err => res.status(404).json({ success: false }))
     });
-});
+  });
   }	
 });
 
