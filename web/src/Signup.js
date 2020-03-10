@@ -12,7 +12,7 @@ function Signup (){
             <div class="text text-center font-serif">
             <div class="title text-parkblue-dark text-4xl mt-16">Creando Cuenta</div>
             </div>
-            <form name="Form" class="relative" action="http://localhost:5050/api/users/register" method="post">
+            <form name="Form" class="relative" action="http://localhost:5000/api/users/register" method="post">
             <div class="absolute left-half -ml-28">
             <Signup1/> 
             <Signup2/> 

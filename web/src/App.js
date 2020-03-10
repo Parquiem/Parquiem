@@ -6,6 +6,9 @@ import Login from './Login';
 import Test from './Test';
 import Test2 from './Test2';
 import Signup from './Signup';
+import Addcar from './Addcar';
+import Deletecar from './Deletecar';
+import Edit_user from './Edit_user';
 import Signup1 from './signup-steps/Signup1';
 import Signup2 from './signup-steps/Signup2';
 import Signup3 from './signup-steps/Signup3';
@@ -24,6 +27,9 @@ class App extends Component {
              <Route path="/signup1" component={Signup1}/>
              <Route path="/signup2" component={Signup2}/>
              <Route path="/signup3" component={Signup3}/>
+             <Route path="/addcar" component={Addcar}/>
+             <Route path="/deletecar" component={Deletecar}/>
+             <Route path="/edit_user" component={Edit_user}/>
            </Switch>
         </div> 
       </BrowserRouter>
