@@ -2,16 +2,15 @@ const express = require("express");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const passport = require("passport");
-
-
+const cors= require("cors")
 
 const users = require("./routes/api/users");
 const transactions = require('./routes/api/transactions');
 // const sensors = require('./routes/api/sensors');
 
-
 const app = express();
 
+app.use(cors())
 
 app.use(
   bodyParser.urlencoded({
@@ -57,7 +56,18 @@ mongoose
         if (error || response.statusCode !== 200) {
           return res.status(500).json({ type: 'error', message: err.message });
         }
-  
+        res.json(JSON.parse(body));
+      }
+    )
+  });
+
+  app.get('/update/5e45b1c3c7f18755e6fa3e65', (req, res) => {
+    request(
+      { url: 'http://localhost:5000/api/users/update/5e45b1c3c7f18755e6fa3e65' },
+      (error, response, body) => {
+        if (error || response.statusCode !== 200) {
+          return res.status(500).json({ type: 'error', message: err.message });
+        }
         res.json(JSON.parse(body));
       }
     )

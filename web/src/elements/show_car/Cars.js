@@ -1,13 +1,15 @@
 import React, { Component } from 'react';
 import Carslist from './Carslist';
+import {withRouter} from 'react-router'
 
 class Cars extends Component{
     constructor(props){
         super(props)
         this.state={ car:[]}
     }
-    componentWillMount(){
-    fetch('http://localhost:5000/api/users/getUser/5e45b1c3c7f18755e6fa3e65')
+    componentDidMount(){
+    const id = this.props.match.params.id;
+    fetch(`http://localhost:5000/api/users/getUser/${id}`)
     .then((response)=>{
         return response.json();
     })
@@ -18,7 +20,7 @@ class Cars extends Component{
     render(){
         if(this.state.car.length > 0){
             return(
-                <div class="cuerpo pt-16 pl-32 pr-32">
+                <div class="cuerpo pt-16 pl-32 pr-32 h-full">
                     <Carslist listado={this.state.car}/>
                 </div>
                 )
@@ -28,4 +30,4 @@ class Cars extends Component{
     }
 }
 
-export default Cars
+export default withRouter(Cars)
