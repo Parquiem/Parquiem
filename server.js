@@ -2,12 +2,7 @@ const express = require("express");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const passport = require("passport");
-<<<<<<< HEAD
-const cors = require("cors");
-
-=======
 const cors= require("cors")
->>>>>>> 8df640939ad6cb0160d85ce6d6f65bd31b8e6c10
 
 const users = require("./routes/api/users");
 const transactions = require('./routes/api/transactions');
@@ -16,10 +11,6 @@ const transactions = require('./routes/api/transactions');
 const app = express();
 
 app.use(cors())
-<<<<<<< HEAD
-=======
-
->>>>>>> 8df640939ad6cb0160d85ce6d6f65bd31b8e6c10
 app.use(
   bodyParser.urlencoded({
     extended: false
