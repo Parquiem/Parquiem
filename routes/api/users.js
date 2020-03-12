@@ -184,11 +184,7 @@ router.get('/getUsers', (req, res) => {
 // @access private
 	
 router.put('/update/:id', (req, res) => {
-<<<<<<< HEAD
 	const {errors, isValid } = validateEditInput(req.body);
-=======
-	const {errors, isValid } = validateRegisterInput(req.body);
->>>>>>> 8df640939ad6cb0160d85ce6d6f65bd31b8e6c10
 
   if (!isValid) {
         return res.status(400).json(errors);
