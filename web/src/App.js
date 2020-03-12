@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
  
 import Home from './Home';
 import Login from './Login';
@@ -9,30 +9,22 @@ import Signup from './Signup';
 import Addcar from './Addcar';
 import Deletecar from './Deletecar';
 import Edit_user from './Edit_user';
-import Signup1 from './signup-steps/Signup1';
-import Signup2 from './signup-steps/Signup2';
-import Signup3 from './signup-steps/Signup3';
- 
+
 class App extends Component {
   render() {
     return (      
-       <BrowserRouter>
         <div>
             <Switch>
              <Route path="/" component={Home} exact/>
              <Route path="/login" component={Login}/>
-             <Route path="/test" component={Test}/>
-             <Route path="/test2" component={Test2}/>
+             <Route path="/admin" component={Test}/>
+             <Route path="/user/:id" component={Test2}/>
              <Route path="/signup" component={Signup}/>
-             <Route path="/signup1" component={Signup1}/>
-             <Route path="/signup2" component={Signup2}/>
-             <Route path="/signup3" component={Signup3}/>
-             <Route path="/addcar" component={Addcar}/>
-             <Route path="/deletecar" component={Deletecar}/>
-             <Route path="/edit_user" component={Edit_user}/>
+             <Route path="/userAddCar/:id" component={Addcar}/>
+             <Route path="/user_edit/:id" component={Edit_user}/>
+             <Route path="/userDeleteCar/:id" component={Deletecar}/>
            </Switch>
         </div> 
-      </BrowserRouter>
     );
   }
 }

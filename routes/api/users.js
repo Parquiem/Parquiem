@@ -5,6 +5,7 @@ const jwt = require("jsonwebtoken");
 const keys = require("../../config/keys");
 const auth = require("../auth");
 const multer = require('multer');
+const cors= require("cors");
 var storage = multer.diskStorage({
   destination: function (req, file, cb) {
     cb(null, './uploads/')
@@ -22,6 +23,8 @@ const validateLoginInput = require("../../validation/login");
 
 //Usamos el modelo de usuario
 const User = require("../../models/User");
+
+router.use(cors());
 
 // @route POST api/users/register
 // @desc Register user
@@ -127,6 +130,7 @@ router.post("/login", (req, res) => {
             (err, token) => {
               res.json({
                 success: true,
+                id: user.id,
                 token: "Token " + token
               });
             }
@@ -180,7 +184,11 @@ router.get('/getUsers', (req, res) => {
 // @access private
 	
 router.put('/update/:id', (req, res) => {
+<<<<<<< HEAD
 	const {errors, isValid } = validateEditInput(req.body);
+=======
+	const {errors, isValid } = validateRegisterInput(req.body);
+>>>>>>> 8df640939ad6cb0160d85ce6d6f65bd31b8e6c10
 
   if (!isValid) {
         return res.status(400).json(errors);
@@ -225,7 +233,7 @@ router.post('/update/:id/', upload.single('profilePic'), (req, res) => {
 // @route POST api/users/car/:id
 // @desc adds cars for user
 // @access private
-router.post('/car/:id', auth.required,(req, res) => {
+router.post('/car/:id',(req, res) => {
   let id = req.params.id;
   const newCar = {
     carModel : req.body.carModel,

@@ -2,17 +2,24 @@ const express = require("express");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const passport = require("passport");
+<<<<<<< HEAD
 const cors = require("cors");
 
+=======
+const cors= require("cors")
+>>>>>>> 8df640939ad6cb0160d85ce6d6f65bd31b8e6c10
 
 const users = require("./routes/api/users");
 const transactions = require('./routes/api/transactions');
 // const sensors = require('./routes/api/sensors');
 
-
 const app = express();
 
 app.use(cors())
+<<<<<<< HEAD
+=======
+
+>>>>>>> 8df640939ad6cb0160d85ce6d6f65bd31b8e6c10
 app.use(
   bodyParser.urlencoded({
     extended: false
@@ -57,7 +64,18 @@ mongoose
         if (error || response.statusCode !== 200) {
           return res.status(500).json({ type: 'error', message: err.message });
         }
-  
+        res.json(JSON.parse(body));
+      }
+    )
+  });
+
+  app.get('/update/5e45b1c3c7f18755e6fa3e65', (req, res) => {
+    request(
+      { url: 'http://localhost:5000/api/users/update/5e45b1c3c7f18755e6fa3e65' },
+      (error, response, body) => {
+        if (error || response.statusCode !== 200) {
+          return res.status(500).json({ type: 'error', message: err.message });
+        }
         res.json(JSON.parse(body));
       }
     )
