@@ -10,7 +10,7 @@
     "web": "npm start --prefix web",
     "mobile-server": "npm start --prefix mobile",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev-web": "concurrently \"npm run server\" \"npm run web\"",
+    "dev-web": "concurrently \"npm run server\" \"npm run web\""
   },
   "author": "Parquiem",
   "license": "ISC",
