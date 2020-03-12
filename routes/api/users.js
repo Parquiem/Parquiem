@@ -44,7 +44,7 @@ router.post("/register", (req, res) => {
                 phoneNumber: req.body.phoneNumber,
                 password: req.body.password
             });
-
+            
             //Hasheamos las passwords antes de guardarlas en la BD
             bcrypt.genSalt(10, (err, salt) => {
                 bcrypt.hash(newUser.password, salt, (err, hash) => {
@@ -52,7 +52,36 @@ router.post("/register", (req, res) => {
                     newUser.password = hash;
                     newUser
                     .save()
-                    .then(user => res.json(user))
+                    .then(user => bcrypt.compare(req.body.password, newUser.password).then(isMatch => {
+                      if (isMatch) {
+                        // Se crea el payload
+                        const payload = {
+                          id: user.id,
+                          name: user.name,
+                          email: user.email,
+                          phoneNumber: user.phoneNumber,
+                          parkoins: user.parkoins,
+                        };
+                        // Sign token
+                        jwt.sign(
+                          payload,
+                          keys.secretOrKey,
+                          {
+                            expiresIn: 31556926 // 1 year in seconds
+                          },
+                          (err, token) => {
+                            res.json({user,
+                              success: true,
+                              token: "Token " + token
+                            });
+                          }
+                        );
+                      } else {
+                        return res
+                          .status(400)
+                          .json({ passwordincorrect: "Password incorrect" });
+                      }
+                    }))
                     .catch(err => console.log(err));
                 });
             });
