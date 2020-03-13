@@ -18,6 +18,7 @@ var storage = multer.diskStorage({
 var upload = multer({ storage: storage });
 //Validacion de input
 const validateRegisterInput = require("../../validation/register");
+const validateEditInput = require("../../validation/edit");
 const validateLoginInput = require("../../validation/login");
 
 //Usamos el modelo de usuario
@@ -46,7 +47,7 @@ router.post("/register", (req, res) => {
                 phoneNumber: req.body.phoneNumber,
                 password: req.body.password
             });
-
+            
             //Hasheamos las passwords antes de guardarlas en la BD
             bcrypt.genSalt(10, (err, salt) => {
                 bcrypt.hash(newUser.password, salt, (err, hash) => {
@@ -54,7 +55,36 @@ router.post("/register", (req, res) => {
                     newUser.password = hash;
                     newUser
                     .save()
-                    .then(user => res.json(user))
+                    .then(user => bcrypt.compare(req.body.password, newUser.password).then(isMatch => {
+                      if (isMatch) {
+                        // Se crea el payload
+                        const payload = {
+                          id: user.id,
+                          name: user.name,
+                          email: user.email,
+                          phoneNumber: user.phoneNumber,
+                          parkoins: user.parkoins,
+                        };
+                        // Sign token
+                        jwt.sign(
+                          payload,
+                          keys.secretOrKey,
+                          {
+                            expiresIn: 31556926 // 1 year in seconds
+                          },
+                          (err, token) => {
+                            res.json({user,
+                              success: true,
+                              token: "Token " + token
+                            });
+                          }
+                        );
+                      } else {
+                        return res
+                          .status(400)
+                          .json({ passwordincorrect: "Password incorrect" });
+                      }
+                    }))
                     .catch(err => console.log(err));
                 });
             });
@@ -154,7 +184,7 @@ router.get('/getUsers', (req, res) => {
 // @access private
 	
 router.put('/update/:id', (req, res) => {
-	const {errors, isValid } = validateRegisterInput(req.body);
+	const {errors, isValid } = validateEditInput(req.body);
 
   if (!isValid) {
         return res.status(400).json(errors);
@@ -162,7 +192,6 @@ router.put('/update/:id', (req, res) => {
   let id = req.params.id;
 	let data = {
 		name : req.body.name,
-    //email : req.body.email,
     phoneNumber: req.body.phoneNumber,
     password : req.body.password,
   }
@@ -174,7 +203,7 @@ router.put('/update/:id', (req, res) => {
         User.findByIdAndUpdate(id, data).then(() => res.json({ success: true}))
         .catch(err => res.status(404).json({ success: false }))
     });
-});
+  });
   }	
 });
 
