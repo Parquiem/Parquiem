@@ -12,8 +12,7 @@ const Map= (props)=>{
         defaultZoom={18}
         defaultCenter={{lat: 28.639990, lng:-106.072882}}
         >
-        <Marker position={{ lat: 28.639990, lng:-106.072882}}/>
-        <Marker position={{ lat: 28.639167, lng:-106.078228}}/>
+        <Marker position={{ lat: 28.639990, lng:-106.072882}} icon={"http://maps.google.com/mapfiles/ms/icons/green-dot.png"}/>
         </GoogleMap>
     );
 };

@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{ Component } from 'react';
 import Map from './map/Map';
 import credentials from './map/credentials';
 import './css/Test.css';
@@ -7,7 +7,8 @@ import Navbar from './Unavigation'
 
 const mapURL = `https://maps.googleapis.com/maps/api/js?v=3.exp&key=${credentials.MapsKey}`;
 
-function Test(){
+class Test extends Component{
+    render(){
     return(
     <div class="relative h-screen">
     <Navbar/>
@@ -22,6 +23,7 @@ function Test(){
     </div>
 </div>
         )
+    }
     }
 
 

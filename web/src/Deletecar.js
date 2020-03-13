@@ -9,7 +9,7 @@ function Deletecar(){
     return(
 <div className="relative h-screen">
     <Navbar/>
-    <div id="profile" className="pt-20 p-16 h-full bg-gray-900">
+    <div id="profile" className="p-16 h-full bg-gray-900">
     <div id="profilesquare" className="h-full pl-5">
         <Cars/>
         <div id="boton 2" class="text-center pt-5">

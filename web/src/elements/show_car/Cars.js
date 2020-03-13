@@ -20,7 +20,7 @@ class Cars extends Component{
     render(){
         if(this.state.car.length > 0){
             return(
-                <div class="cuerpo pt-16 pl-32 pr-32 h-full">
+                <div class="cuerpo pt-4 pl-32 pr-32 h-full">
                     <Carslist listado={this.state.car}/>
                 </div>
                 )
