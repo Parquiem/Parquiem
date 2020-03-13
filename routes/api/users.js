@@ -73,9 +73,10 @@ router.post("/register", (req, res) => {
                             expiresIn: 31556926 // 1 year in seconds
                           },
                           (err, token) => {
-                            res.json({user,
+                            res.json({
+                              user: payload,
                               success: true,
-                              token: "Token " + token
+                              token
                             });
                           }
                         );
@@ -131,7 +132,7 @@ router.post("/login", (req, res) => {
               res.json({
                 success: true,
                 id: user.id,
-                token: "Token " + token
+                token
               });
             }
           );
