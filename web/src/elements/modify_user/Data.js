@@ -63,7 +63,7 @@ class Data extends Component{
         const config = {
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded',
-                'Authorization': this.state.token
+                'Authorization': `Token ${this.state.token}`
                 }
             }
 

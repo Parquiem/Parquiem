@@ -41,7 +41,7 @@ class Addcar extends Component{
                 const decode=jwtDecode(this.state.token);
                 const config = {
                     headers: {        
-                        Authorization:this.state.token
+                        Authorization: `Token ${this.state.token}`
                         }
                     }
 
