@@ -76,11 +76,7 @@ router.post("/register", (req, res) => {
                             res.json({
                               user: payload,
                               success: true,
-<<<<<<< HEAD
-                              token: "Token " + token,
-=======
                               token
->>>>>>> 4b2ac331b2ad55404386d74dcd6d7111af49ff41
                             });
                           }
                         );
