@@ -1,12 +1,14 @@
 import React from 'react'
 import axios from 'axios'
 import {withRouter} from 'react-router'
+const jwtDecode = require('jwt-decode');
 
 class Carsrow extends React.Component {
 
   handleClick(id){
-    const userid = this.props.match.params.id;
-    axios.delete(`http://localhost:5000/api/users/carDelete/${userid}/${id}`)
+    const token=this.props.match.params.token;
+    const user = jwtDecode(token) 
+    axios.delete(`http://localhost:5000/api/users/carDelete/${user.id}/${id}`)
       .then(res => {
         console.log(res);
         console.log(res.data);

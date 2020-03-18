@@ -75,7 +75,7 @@ router.post("/register", (req, res) => {
                           (err, token) => {
                             res.json({user,
                               success: true,
-                              token: "Token " + token
+                              token: "Token " + token,
                             });
                           }
                         );
@@ -147,7 +147,7 @@ router.post("/login", (req, res) => {
 // @route DELETE api/users/:id
 // @desc Delete user account
 // @access Private
-router.delete('/delete/:id', auth.required, (req, res) => {
+router.delete('/delete/:id', auth.required,(req, res) => {
   User.findByIdAndDelete(req.params.id).then(() => res.json({ success: true}))
   .catch(err => res.status(404).json({ success: false }))
 });
@@ -156,7 +156,7 @@ router.delete('/delete/:id', auth.required, (req, res) => {
 // @route GET api/users/:id
 // @desc views one user
 // @access public
-router.get('/getUser/:id', (req, res) => {
+router.get('/getUser/:id',(req, res) => {
   User.findById(req.params.id)
     .then((result) => {
       res.json(result);
@@ -183,7 +183,7 @@ router.get('/getUsers', (req, res) => {
 // @desc updates a user
 // @access private
 	
-router.put('/update/:id', (req, res) => {
+router.put('/update/:id', auth.required,(req, res) => {
 	const {errors, isValid } = validateEditInput(req.body);
 
   if (!isValid) {
@@ -229,7 +229,7 @@ router.post('/update/:id/', upload.single('profilePic'), (req, res) => {
 // @route POST api/users/car/:id
 // @desc adds cars for user
 // @access private
-router.post('/car/:id',(req, res) => {
+router.post('/car/:id',auth.required,(req, res) => {
   let id = req.params.id;
   const newCar = {
     carModel : req.body.carModel,

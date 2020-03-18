@@ -1,20 +1,22 @@
 import React, { Component } from 'react';
 import Carslist from './Carslist';
-import {withRouter} from 'react-router'
+import {withRouter} from 'react-router';
+const jwtDecode = require('jwt-decode');
 
 class Cars extends Component{
     constructor(props){
         super(props)
-        this.state={ car:[]}
+        this.state={ car:[],token:this.props.match.params.token}
     }
     componentDidMount(){
-    const id = this.props.match.params.id;
-    fetch(`http://localhost:5000/api/users/getUser/${id}`)
+    const decode=jwtDecode(this.state.token);
+    fetch(`http://localhost:5000/api/users/getUser/${decode.id}`)
     .then((response)=>{
         return response.json();
     })
     .then((usuario)=>{
         this.setState({car: usuario.car})
+        console.log(this.state.car)
         })
     }
     render(){

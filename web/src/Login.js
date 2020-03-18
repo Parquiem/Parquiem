@@ -3,11 +3,12 @@ import Navigation from './Navigation';
 import {NavLink, Redirect} from 'react-router-dom';
 import axios from 'axios';
 const qs = require('querystring');
+const jwtDecode = require('jwt-decode');
 
 class Login extends Component {
   constructor(props){
     super(props)
-    this.state={pass:'',email:'',login:null,id:''}
+    this.state={pass:'',email:'',login:null,token:'',id:''}
 }
   handleEmail = event => {
     this.setState({ email: event.target.value });
@@ -33,7 +34,9 @@ class Login extends Component {
     axios.post(`http://localhost:5000/api/users/login`, qs.stringify(data),config)
       .then(res => {
         if(res.data.success===true){
-          this.setState({id:res.data.id})
+          this.setState({token:res.data.token})
+          let deco=jwtDecode(this.state.token)
+          this.setState({id:deco.id})
           this.setState({login:true})
         }
       }).catch(error =>{alert("Los datos del usuario no son correctos")})
@@ -44,7 +47,7 @@ class Login extends Component {
       if(this.state.id==='5e69065bf3ffd02c73169100'){
         return <Redirect to = {`/Admin`} />
       }else{
-      return <Redirect to = {`/User/${this.state.id}`} />
+      return <Redirect to = {`/User/${this.state.token}`} />
     }
     }
 
@@ -57,7 +60,7 @@ class Login extends Component {
       </div>
       <form class="relative" onSubmit={this.handleLogin}>
         <div class="absolute left-half -ml-28">
-        <input type="email" id="email" class="outline-none mt-20 font-serif text-xl text-parkblue-dark rounded-full border-parkblue-dark border-2 placeholder-parkblue-dark pl-4 p-1" name="email" placeholder="Correo" onChange={this.handleEmail} required></input>
+        <input type="email" id="email" class="outline-none block mt-20 font-serif text-xl text-parkblue-dark rounded-full border-parkblue-dark border-2 placeholder-parkblue-dark pl-4 p-1" name="email" placeholder="Correo" onChange={this.handleEmail} required></input>
         <input type="password" id="pass" class="outline-none block mt-5 font-serif text-xl text-parkblue-dark rounded-full border-parkblue-dark border-2 placeholder-parkblue-dark pl-4 p-1" name="password" placeholder="Contraseña" onChange={this.handlePass} required></input>
         </div>
         <div class="absolute left-half ml-8 mt-52">

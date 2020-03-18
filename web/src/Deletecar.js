@@ -5,7 +5,7 @@ import './css/Deletecar.css'
 import Navbar from './Unavigation'
 
 function Deletecar(){
-    const id = useParams();
+    const token = useParams();
     return(
 <div className="relative h-screen">
     <Navbar/>
@@ -13,7 +13,7 @@ function Deletecar(){
     <div id="profilesquare" className="h-full pl-5">
         <Cars/>
         <div id="boton 2" class="text-center pt-5">
-        <NavLink to={`/User/${id.id}`}><button class="outline-none border-white border-2 text-white pl-6 pr-6 pt-1 pb-1 rounded-full font-serif">Atrás</button></NavLink>
+        <NavLink to={`/User/${token.token}`}><button class="outline-none border-white border-2 text-white pl-6 pr-6 pt-1 pb-1 rounded-full font-serif">Atrás</button></NavLink>
         </div>
     </div>
     </div>

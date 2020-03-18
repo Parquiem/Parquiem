@@ -18,11 +18,11 @@ class App extends Component {
              <Route path="/" component={Home} exact/>
              <Route path="/login" component={Login}/>
              <Route path="/admin" component={Test}/>
-             <Route path="/user/:id" component={Test2}/>
+             <Route path="/user/:token/" component={Test2}/>
              <Route path="/signup" component={Signup}/>
-             <Route path="/userAddCar/:id" component={Addcar}/>
-             <Route path="/user_edit/:id" component={Edit_user}/>
-             <Route path="/userDeleteCar/:id" component={Deletecar}/>
+             <Route path="/userAddCar/:token" component={Addcar}/>
+             <Route path="/user_edit/:token" component={Edit_user}/>
+             <Route path="/userDeleteCar/:token" component={Deletecar}/>
            </Switch>
         </div> 
     );
