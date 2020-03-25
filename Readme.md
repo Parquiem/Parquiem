@@ -6,7 +6,7 @@ A Web and Mobile aplication that tracks any parking meter in Chihuahua city, sho
 ### Prerequisites
 *Node.js*
 
-### Setup web server
+### Setup Web server
 
 ```bash
 # Install dependencies on web folder
