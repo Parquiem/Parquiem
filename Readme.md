@@ -6,9 +6,18 @@ A Web and Mobile aplication that tracks any parking meter in Chihuahua city, sho
 ## Prerequisites
 _Node.js
 
-### Setup
+### Setup web server
 
 ```bash
+# Install dependencies on web folder
+npm install
+
+# Server on localhost:3000
+npm start
+
+```
+### Setup MongoDB server
+```bash 
 # Install dependencies on root folder
 npm install
 
@@ -20,11 +29,4 @@ set GOOGLE_APPLICATION_CREDENTIALS="[PATH]"
 
 # Server on localhost:5000
 npm start
-
-# Install dependencies on web folder
-npm install
-
-# Server on localhost:3000
-npm start
-
 ```
