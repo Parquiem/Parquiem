@@ -17,6 +17,7 @@ class Addcar extends Component{
         this.setState({
              model: value
         });
+        
     }
     onChangeColor(value){
         this.setState({
