@@ -21,7 +21,7 @@ function Home() {
     <div class="page3 bg-cover w-full text-center" id="rectangulo">
       <p class="align-center font-serif text-white text-3xl pt-24">Crea tu cuenta</p>
       <p class="align-center font-serif text-white text-xl pt-5 pb-20">Se parte del futuro de los parquimetros</p>
-      <NavLink to="/Admin"><button class="outline-none border-white border-2 text-2xl text-white bg-transparent pl-10 pr-10 pt-2 pb-2 rounded-full font-serif">Inscribete</button></NavLink>
+      <NavLink to="/Signup"><button class="outline-none border-white border-2 text-2xl text-white bg-transparent pl-10 pr-10 pt-2 pb-2 rounded-full font-serif">Inscribete</button></NavLink>
       </div>
       <div class="bg-gray-900 w-full flex justify-center items-center" id="footer">
         <p class="font-serif font-hairline text-gray-600 text-sm text-center align-middle">Designed by Parquiem Team in Chihuahua</p>
