@@ -77,6 +77,9 @@ class Data extends Component{
         if(this.props.location.pathname==='/User/'+this.props.match.params.token){
             return(
                 <div className="form_data">
+                    <div id="pic" className="pb-5">
+                <img src="/images/default-user-300x300.png" className="rounded-full w-24" alt="imagen usuario"/>
+                </div>
                 <div id="userName" class="mr-20 pb-2 relative">
                 <p class="font-serif text-gray-600">Nombre de usuario</p>
                    <input type="text" class="outline-none bg-gray-900 font-serif text-white border-b-2 w-full float-left" value={this.state.name} readOnly></input>
